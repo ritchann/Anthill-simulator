@@ -5,9 +5,9 @@ Enemy::Enemy()
 {
 	srand(time(0));
 	x = 41; 
-	y = rand() % 23;//появляется на границе в рандомной точке
-	attackTime = 25 + rand() % 35; //я поставила время атаки с 25, потому что у нас воины только после 20 появляются
-	intervalBetweenAttacks = 10 + rand() % 20;// в общем, у нас есть время начала атаки, и также рандомим интервал между нашими атаками
+	y = rand() % 23;
+	attackTime = 25 + rand() % 35; 
+	intervalBetweenAttacks = 10 + rand() % 20;
 	livespan = 1;
 	texture.loadFromFile("images/Enemy.png");
 	sprite.setTexture(texture);
@@ -54,7 +54,7 @@ void Enemy::move() {
 
 
 void Enemy::update(Field* field,int time) {
-	if (field->getValue(x,y)==2)// все также как у других, только если в клеточке вишенка, он ее ест)))
+	if (field->getValue(x,y)==2)
 		field->setValue(x, y);
 	livespan++;
 	sprite.setTexture(texture);
@@ -62,7 +62,7 @@ void Enemy::update(Field* field,int time) {
 	sprite.setPosition(x * 32, y * 32);
 }
 
-bool Enemy::alive(int time) {// жив, а точнее активен только тогда, когда текущее время больше времени начала атаки
+bool Enemy::alive(int time) {
 	if (time >= attackTime)
 		return true;
 	else{
@@ -70,37 +70,37 @@ bool Enemy::alive(int time) {// жив, а точнее активен только тогда, когда текуще
 	}
 }
 
-void Enemy::setCoordinates() {//меняем тут координатки, для его нового рандомного положения
+void Enemy::setCoordinates() {
 	x = 41;
 	y = 1+rand()%23;
 }
-void Enemy::doWork(Ant* ant,Field* field,int time) {//собствена его работка
-	if (ant->getX() == x && ant->getY() == y) { // если враг стоит в одной клетке с муравьем
-		if (ant->getRole()->Work(field->getValue(x, y)) == 4) {//а именно если стоит с воином
-			switch (1 + rand() % 3)//будем рандомить действия, потому что уровней жизни у нас нет и чтобы все это было поинтереснен
+void Enemy::doWork(Ant* ant,Field* field,int time) {
+	if (ant->getX() == x && ant->getY() == y) { 
+		if (ant->getRole()->Work(field->getValue(x, y)) == 4) {
+			switch (1 + rand() % 3)
 			{
-			case 1: // убиваем воина
+			case 1: 
 				ant->setLivespan();
 				ant->setRole();
 				cout << "kill warrior" << endl;
 				break;
-			case 2: //тут у нас враг паникует, его пугают и он отлетает к боковой правой границе
+			case 2: 
 				while (getX() != 41) {
 					goRight();
 				}
 				cout << "panic enemy" << endl;
 				break;
-			case 3://врага убивают
-				setCoordinates();//рандомим ему новые координаты
-				attackTime = time + intervalBetweenAttacks;//также ставим новое время начала атаки с учетом текущего времени и интервала между атаками
+			case 3:
+				setCoordinates();
+				attackTime = time + intervalBetweenAttacks;
 				cout << "kill enemy" << endl;
 				break;
 			}
 		}
-		if (ant->getRole()->getFile() == "images/collectorFood.png") {//если у нас в клеточке собиратель еды, то мы ее либо отбираем, либо нет
+		if (ant->getRole()->getFile() == "images/collectorFood.png") {
 			switch (1+rand()%2 )
 			{
-			case 1://отбираем еду 
+			case 1:
 				field->setCountedFood(field->getCountedFood() - 1);
 				cout << "took food" << endl;
 				break;
