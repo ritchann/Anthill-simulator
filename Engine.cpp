@@ -9,7 +9,7 @@ Engine::Engine(Field* field) {
 	
 	this->field = field;
 	Ant* firstAnt = new Ant();
-	enem = new Enemy();// создаем врага
+	enem = new Enemy();// Г±Г®Г§Г¤Г ГҐГ¬ ГўГ°Г ГЈГ 
 	org.push(firstAnt);
 }
 
@@ -22,16 +22,16 @@ void Engine::start() {
 		}
 
 		Ant* tmpAnt = new Ant();
-		while (time > currentTime) { //я тут исправила, чтобы время увеличивалось, потому что мне надо было его для функций
+		while (time > currentTime) { 
 			while (!org.empty()) {
 				org.front()->update(time, field);
 				if (org.front()->alive()) {
-					if (enem->alive(currentTime)) //если у нас враг активен,у него время атаки
-						enem->doWork(org.front(), field, currentTime);//выполняем с соответствующим муравьем свои действия
+					if (enem->alive(currentTime)) 
+						enem->doWork(org.front(), field, currentTime);
 					else
 						inform.setDanger();
 
-					if (org.front()->alive())// проверяем еще раз, жив ли муравей, так как враг мог его убить)))))хех
+					if (org.front()->alive())
 						tmp.push(org.front());
 				}
 				org.pop();
@@ -51,7 +51,7 @@ void Engine::start() {
 			draw();
 			if (currentTime % 250 == 0)
 				field->updateField();
-			currentTime++; //тут теперь мы просто увеличиваем текущее время
+			currentTime++; 
 			Sleep(100);
 		}
 	}
@@ -59,7 +59,6 @@ void Engine::start() {
 
 void Engine::draw() {
 	window.clear();
-	// выводим траву
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 24; j++) {
 			backgroundSprite.setPosition(i * 32, j * 32);
@@ -69,8 +68,6 @@ void Engine::draw() {
 
 	anthill.update(field,output.size(),currentTime);
 	Sprite sprite = anthill.getSprite();
-	
-	// выводим муравейник
 	for (int i = 0; i < anthill.getStatus(); i++) {
 		for (int j = 0; j < 24; j++) {
 
@@ -113,8 +110,7 @@ void Engine::draw() {
 	Text textNumber4(std::to_string(currentTime), font, 20);
 	textNumber4.setPosition(1095, 60);
 	window.draw(textNumber4);
-
-	// отрисовка предметов на поле (мусор, ветки, еда)
+	
 	Texture textureLitter;
 	textureLitter.loadFromFile(field->getFileLitter());
 	Sprite spriteLitter;
@@ -131,8 +127,8 @@ void Engine::draw() {
 	spriteBranch.setTexture(textureBranch);
 
 
-	if (enem->alive(currentTime)) { //смотрим, если у врага время атака, то обновляем его и отображаем, если время не пришло то пусть тусит где-нибудь в другом месте
-		enem->update(field, currentTime);//следовательно обновляем, рисуем
+	if (enem->alive(currentTime)) { 
+		enem->update(field, currentTime);
 		window.draw(enem->getSprite());
 	}
 
@@ -154,10 +150,6 @@ void Engine::draw() {
 		}
 	}
 	
-
-
-
-	// выводим муравьев
 	for (int i = 0; i < output.size(); i++) {
 		window.draw(output[i]);
 	}
