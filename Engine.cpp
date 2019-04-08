@@ -9,7 +9,7 @@ Engine::Engine(Field* field) {
 	
 	this->field = field;
 	Ant* firstAnt = new Ant();
-	enem = new Enemy();// ñîçäàåì âðàãà
+	enem = new Enemy();
 	org.push(firstAnt);
 }
 
