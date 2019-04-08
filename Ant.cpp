@@ -7,7 +7,7 @@ Ant::Ant()
 	role = new Baby();
 	role->setLeftBorder(0);
 	role->setRightBorder(9); 
-	x = rand() % 9; // baby borns in anthill
+	x = rand() % 9; 
 	y = rand() % 20;
 	livespan = 0;
 
