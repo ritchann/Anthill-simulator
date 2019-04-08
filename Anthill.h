@@ -18,8 +18,8 @@ public:
 	int getCoord() {
 		return coord;
 	}
-	void update(Field* field, int countAnt, int time) { //тут можно ничего не понимать, просто рандомные действия, но зависящие от колличества еды и веточек
-		if (time > 90) {//веточки берут на строительство, кушают еду и живут активным образом жизни
+	void update(Field* field, int countAnt, int time) { 
+		if (time > 90) {
 			if (time % 20 == 0 && coord <21 && coord>9) {
 				if (field->getCountedFood() - countAnt / 2 > 0) {
 					field->setCountedFood(field->getCountedFood() - countAnt / 2);
