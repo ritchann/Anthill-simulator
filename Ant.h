@@ -38,25 +38,6 @@ public:
 		return role;
 	}
 	void update(int time, Field* field);
-	/*void attach(Observer* obs,Field* field)
-	{
-		notForFight.clear();
-		forFight.clear();
-		if (getRole()->Work(field->getValue(x, y)) == 0)
-			notForFight.push_back(obs);
-		else
-			forFight.push_back(obs);
-	}
-	void set_val(int value)
-	{
-		m_value = value;
-		notify();
-	}
-	void notify()
-	{
-		for (int i = 0; i < m_views.size(); ++i)
-			m_views[i]->update(m_value);
-	}*/
 	~Ant();
 };
 
